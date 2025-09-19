@@ -1,0 +1,6 @@
+Flask
+Flask-CORS
+Werkzeug
+PyJWT
+gunicorn
+requests

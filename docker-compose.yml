@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  video-transcoder:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=video-transcoding-secret-key-change-in-production
+    volumes:
+      - ./uploads:/app/uploads
+      - ./transcoded:/app/transcoded
+      - ./video_transcoder.db:/app/video_transcoder.db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
